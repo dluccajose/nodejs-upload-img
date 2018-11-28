@@ -8,3 +8,16 @@ con la ruta de la base de datos mongodb que usaran
 mongoose.connect("mongodb://localhost:27017/fotos");
 ```
 
+# Capturas de pantalla
+
+Inicio: https://dluccajose.github.io/nodejs-upload-img/screenshots/inicio.png
+
+Lista de Imagenes: https://dluccajose.github.io/nodejs-upload-img/screenshots/lista.png
+
+Subir Imagen: https://dluccajose.github.io/nodejs-upload-img/screenshots/subirimagen.png
+
+Ver Imagen: https://dluccajose.github.io/nodejs-upload-img/screenshots/verimagen.png
+
+Editar Imagen: https://dluccajose.github.io/nodejs-upload-img/screenshots/editarimagen.png
+
+![inicio] (https://dluccajose.github.io/nodejs-upload-img/screenshots/editarimagen.png)
