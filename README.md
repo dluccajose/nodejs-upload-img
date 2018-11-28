@@ -4,6 +4,8 @@ Proyecto basico con NodeJS y Express para la carga de imagenes con una base de d
 Tema Boostrap utlizado para el diseño: https://www.creative-tim.com/product/paper-kit
 
 # Configuracion
+Carpeta de imagenes: Antes de iniciar el proyecto, se debe crear una carpeta con el nombre "uploads" dentro de la carpeta "public" donde seran guardadas las imagenes que se suban al servidor
+
 Configurar la base de datos: Abrir los archvios imagen.js y user.js que se encuentran en la carpeta "models" y sustituir la siguiente linea
 con la ruta de la base de datos mongodb que usaran
 ```
