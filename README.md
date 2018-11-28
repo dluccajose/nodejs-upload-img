@@ -1,6 +1,8 @@
 # nodejs-upload-img
 Proyecto basico con NodeJS y Express para la carga de imagenes con una base de datos MongoDB. Contiene sistema de usuarios y crud de imagenes
 
+Tema Boostrap utlizado para el diseño: https://www.creative-tim.com/product/paper-kit
+
 # Configuracion
 Configurar la base de datos: Abrir los archvios imagen.js y user.js que se encuentran en la carpeta "models" y sustituir la siguiente linea
 con la ruta de la base de datos mongodb que usaran
@@ -19,5 +21,3 @@ Subir Imagen: https://dluccajose.github.io/nodejs-upload-img/screenshots/subirim
 Ver Imagen: https://dluccajose.github.io/nodejs-upload-img/screenshots/verimagen.png
 
 Editar Imagen: https://dluccajose.github.io/nodejs-upload-img/screenshots/editarimagen.png
-
-![inicio] (https://dluccajose.github.io/nodejs-upload-img/screenshots/editarimagen.png)
