@@ -9,6 +9,9 @@ var router_app = require("./router_app");
 var session_middleware = require("./middleware/sessions");
 var method_override = require("method-override");
 var formidable  = require("express-formidable");
+var bcrypt = require("bcrypt");
+
+const saltRounds = 10;
 
 
 
@@ -76,10 +79,11 @@ app.get("/login",function(req,res) {
 // Registrar usuario
 app.post("/registrar",function(req,res) {
 
+
+
     var fechaRegistro = new Date();
 
-    var user = new Usuario({email: req.body.email, 
-                            password: req.body.password, 
+    var user = new Usuario({email: req.body.email,
                             nombre: req.body.nombre,
                             apellido: req.body.apellido,
                             fecha_registro:fechaRegistro});
@@ -87,15 +91,20 @@ app.post("/registrar",function(req,res) {
     Usuario.findOne({email: req.body.email}, function(err, doc) {
         // Si no existe el email, registramos el usuario
         if (!doc) {
-            // Guardamos el usaurio haciendo uso de las Promises
-            user.save().then(function (us) {
-                res.send("Usuario guardado exitosamente");
-            }, function (err) {
-                if (err) {
-                    console.log(String(err));
-                    res.end();
-                }
+            // Hashear password
+            bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+                // Guardamos el usaurio haciendo uso de las Promises
+                user.password = hash;
+                user.save().then(function (us) {
+                    res.send("Usuario guardado exitosamente");
+                }, function (err) {
+                    if (err) {
+                        console.log(String(err));
+                        res.end();
+                    }
+                });
             });
+           
         } else {
             res.send("El email ya existe en la base de datos");
         }
@@ -107,16 +116,23 @@ app.post("/registrar",function(req,res) {
 // Sesiones
 app.post("/sessions", function(req,res) {
 
-    Usuario.findOne({email: req.body.email, password: req.body.password}, function(err,user) {
+    Usuario.findOne({email: req.body.email}, function(err,user) {
         if(!user) {
             res.send("Usuario no encontrado");
         } else {
-            req.session.user = user._id;
-            req.session.email = user.email;
-            req.session.password = user.password;
-            res.redirect("/app");
+            bcrypt.compare(req.body.password, user.password, function(err, resultado) {
+                if(resultado) {
+                    req.session.user = user._id;
+                    req.session.email = user.email;
+                    req.session.password = user.password;
+                    res.redirect("/app");
+                } else {
+                    console.log("Contrasena no coinciden");
+                    res.render("app/error", {error: "El password es incorrecto"});
+                }
+            });
         }
-        res.end();
+        //res.end();
     })
 });
 
