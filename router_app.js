@@ -1,16 +1,40 @@
 var express = require("express");
 var router = express.Router();
 var Imagen = require("./models/imagen").Imagen;
+var Usuario = require("./models/user").Usuario;
 var fs = require("fs");
 
-router.get("/", function(req,res){
-    res.render("app/home");
-});
+router.route("/")
+    .get(function(req,res){
+         res.render("app/home");
+    })
 
 
-router.get("/usuario", function(req,res) {
-    res.render("app/usuario");
-})
+
+router.route("/usuario")
+    .get(function(req,res) {
+        res.render("app/usuario");
+    })
+    .put(function(req, res) {
+        Usuario.findById(res.locals.user._id, function(err, user) {
+            if(!err) {
+                user.nombre = req.body.nombre;
+                user.apellido = req.body.apellido;
+                user.alias = req.body.alias;
+                user.ocupacion = req.body.ocupacion;
+                user.save(function(err) {
+                    if(!err) {
+                        console.log("Usuario modificado con exito");
+                        res.redirect("/app/usuario");
+                    } else {
+                        res.render("app/error", {error: err});
+                    }
+                });
+            } else {
+                res.render("app/error", {error: err});
+            }
+        })
+    });
 
 
 router.get("/imagenes/new", function(req,res) {
@@ -79,7 +103,7 @@ router.route("/imagenes/:id")
     }).delete(function(req,res) {
         Imagen.findById(req.params.id, function(err, img) {
             if(!err) {
-                if(img.owner.toString() === res.locals.user.id.toString()) {
+                if(img.owner.toString() === res.locals.user._id.toString()) {
                     img.delete(function(err) {
                         if(!err) {
                             console.log("Imagen eliminada correctamente");

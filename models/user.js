@@ -9,6 +9,10 @@ mongoose.connect("mongodb://localhost:27017/fotos");
 var user_schema = Schema({
     email:{type:String,required:true},
     password:{type:String,minlength:[8, "Su contrase;a es muy corta"]},
+    nombre:{type:String},
+    apellido:{type: String},
+    alias:{type: String},
+    ocupacion:{type: String},
     fecha_registro:{type:Date,required:true}
 });
 
