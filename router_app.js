@@ -77,10 +77,22 @@ router.route("/imagenes/:id")
 
     //Eliminar Imagen
     }).delete(function(req,res) {
-        Imagen.findOneAndRemove({_id: req.params.id}, function(err) {
+        Imagen.findById(req.params.id, function(err, img) {
             if(!err) {
-                console.log("Imagen eliminada correctamente");
-                res.redirect("/app/imagenes");
+                if(img.owner.toString() === res.locals.user.id.toString()) {
+                    img.delete(function(err) {
+                        if(!err) {
+                            console.log("Imagen eliminada correctamente");
+                            res.redirect("/app/imagenes");
+                        } else {
+                            console.log(err);
+                            res.render("app/error", {error: err});
+                        }
+                    });
+                } else {
+                    res.render("app/error", {error: "No tienes permisos para eliminar esta imagen"});
+                }
+                
             } else {
                 res.render("app/error", {error: err});
                 console.log(err);
