@@ -1,69 +1,8 @@
 var express = require("express");
 var router = express.Router();
-var Imagen = require("./models/imagen").Imagen;
-var Usuario = require("./models/user").Usuario;
+var Imagen = require("../models/imagen").Imagen;
+var Usuario = require("../models/user").Usuario;
 var fs = require("fs");
-
-
-router.route("/")
-
-    .get(function (req, res) {
-
-        
-        Imagen.find(function (err, doc) {
-
-            var total_imagenes = doc.length    // Numero de imagenes subidas
-            var tus_imagenes = 0;
-
-            // Contar imagenes subidas por el usuario
-            for (var i = 0; i < doc.length; i++) {
-                if (doc[i].owner.toString() === res.locals.user._id.toString()) {
-                    tus_imagenes++;
-                }
-            }
-
-            Usuario.find(function (err, user_doc) {
-
-                var total_usuarios = user_doc.length;   // Numero de usuarios registrados
-
-                res.render("app/home", {
-                    total_imagenes: total_imagenes,
-                    tus_imagenes: tus_imagenes,
-                    total_usuarios: total_usuarios
-                });
-
-            });
-
-        });
-
-    })
-
-
-
-router.route("/usuario")
-    .get(function(req,res) {
-        res.render("app/usuario");
-    })
-    .put(function(req, res) {
-        Usuario.findById(res.locals.user._id, function(err, user) {
-            if(!err) {
-                user.nombre = req.body.nombre;
-                user.apellido = req.body.apellido;
-                user.alias = req.body.alias;
-                user.ocupacion = req.body.ocupacion;
-                user.save(function(err) {
-                    if(!err) {
-                        console.log("Usuario modificado con exito");
-                        res.redirect("/app/usuario");
-                    } else {
-                        res.render("app/error", {error: err});
-                    }
-                });
-            } else {
-                res.render("app/error", {error: err});
-            }
-        })
-    });
 
 
 router.get("/imagenes/new", function(req,res) {

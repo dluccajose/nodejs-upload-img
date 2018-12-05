@@ -5,11 +5,15 @@ var hbs = require("express-handlebars");
 var bodyParser = require("body-parser");
 var Usuario = require("./models/user").Usuario;
 var session = require("cookie-session");
-var router_app = require("./router_app");
 var session_middleware = require("./middleware/sessions");
 var method_override = require("method-override");
 var formidable  = require("express-formidable");
 var bcrypt = require("bcrypt");
+
+// Rutas
+var router_app = require("./router/router_app");
+var router_user = require("./router/user");
+var router_home = require("./router/home");
 
 const saltRounds = 10;
 
@@ -46,6 +50,8 @@ app.use("/",express.static('public'));
 // Middlware para sesiones y rutas de la app
 app.use("/app",session_middleware);
 app.use("/app",router_app);
+app.use("/app",router_user);
+app.use("/app",router_home);
 
 
 // Iniciar Servidor
