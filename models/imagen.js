@@ -9,7 +9,8 @@ mongoose.connect("mongodb://localhost:27017/fotos");
 var img_schema = Schema({
     title:{type:String,required:true},
     extension:{type: String, required: true},
-    owner:{type: Schema.Types.ObjectId, ref: "Usuario", required:true}
+    owner:{type: Schema.Types.ObjectId, ref: "Usuario", required:true},
+    megusta_count:{type: Number, default: 0}
 });
 
 // Creamos el modelo

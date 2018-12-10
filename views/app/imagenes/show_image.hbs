@@ -53,14 +53,20 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="header">
-                                        <h4 class="title"><i class="ti-image"></i> {{this.title}}</h4>
+                                        <h4 class="title"><i class="ti-image"></i> {{img.title}}</h4>
                                     </div>
                                     <div class="content">
                                                 <div class="row">
                                                     <div class="col-lg-4">
-                                                        <p><img  src="/uploads/{{this._id}}.{{this.extension}}" /></p>
-                                                        <p>Titulo de la imagen: {{this.title}}</p>
-                                                        <p>Subida por: {{this.owner.email}}</p>
+                                                        <p><img  src="/uploads/{{img._id}}.{{img.extension}}" /></p>
+                                                        <p>Titulo de la imagen: {{img.title}}</p>
+                                                        <p>Subida por: {{img.owner.email}}</p>
+                                                        <p>Numero de Me Gusta: {{img.megusta_count}}</p>
+                                                        {{#if liked}}
+                                                            <p>Ya le diste me gusta</p>
+                                                        {{else}}
+                                                            <p><a href="/app/megusta/{{img._id}}">Me Gusta!</a></p>
+                                                        {{/if}}
                                                     </div>
                                                 </div>
                                         </div>

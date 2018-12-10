@@ -14,6 +14,7 @@ var bcrypt = require("bcrypt");
 var router_app = require("./router/router_app");
 var router_user = require("./router/user");
 var router_home = require("./router/home");
+var router_megusta = require("./router/megusta");
 
 const saltRounds = 10;
 
@@ -52,7 +53,7 @@ app.use("/app",session_middleware);
 app.use("/app",router_app);
 app.use("/app",router_user);
 app.use("/app",router_home);
-
+app.use("/app",router_megusta);
 
 // Iniciar Servidor
 app.listen(8080);

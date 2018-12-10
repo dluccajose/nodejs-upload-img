@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Imagen = require("../models/imagen").Imagen;
 var Usuario = require("../models/user").Usuario;
+var Megusta = require("../models/megusta").Megusta;
 var fs = require("fs");
 
 
@@ -36,15 +37,33 @@ router.route("/imagenes/:id")
     // Mostrar Imagen
     .get(function(req, res) {
 
+    var data = {};
+
         Imagen.findById(req.params.id)
               .populate("owner")
               .exec(function(err, img) {
+
+                Megusta.find({usuario: res.locals.user._id, imagen: req.params.id}, function(err, megusta) {
+
                     if(!err) {
-                        res.render("app/imagenes/show_image",img);
+
+                        if(megusta.length!==0) {
+                            data.liked = 1;
+                        }
+
+                        if(!err) {
+                            data.img = img;
+                            res.render("app/imagenes/show_image",data);
+                        } else {
+                            res.render("app/error", {error: err});
+                            console.log(err);
+                        }
+
                     } else {
                         res.render("app/error", {error: err});
                         console.log(err);
                     }
+                });
         });
 
     // Actualizar Imagen
