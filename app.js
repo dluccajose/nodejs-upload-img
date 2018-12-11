@@ -1,4 +1,7 @@
 // Modulos necesarios
+var env = require('node-env-file'); // .env file
+var path = require('path');
+global.appRoot = path.resolve(__dirname); // Ruta principal
 var express = require("express");
 var app = express();
 var hbs = require("express-handlebars");
@@ -9,6 +12,9 @@ var session_middleware = require("./middleware/sessions");
 var method_override = require("method-override");
 var formidable  = require("express-formidable");
 var bcrypt = require("bcrypt");
+
+
+env(global.appRoot + '/.env');
 
 // Rutas
 var router_app = require("./router/router_app");

@@ -17,6 +17,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "method-override": "^3.0.0",
-    "mongoose": "^5.3.8"
+    "mongoose": "^5.3.8",
+    "node-env-file": "^0.1.8"
   }
 }

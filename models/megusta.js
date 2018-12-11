@@ -1,8 +1,11 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var env = require('node-env-file'); // .env file
+env(global.appRoot + '/.env');
+
 
 // Conectamos a la base de datos
-mongoose.connect("mongodb://localhost:27017/fotos");
+mongoose.connect(process.env.DB);
 
 // Creamos el esquema
 var megsuta_schema = Schema({
