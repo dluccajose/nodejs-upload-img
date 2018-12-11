@@ -63,7 +63,9 @@
                                                         <p>Subida por: {{img.owner.email}}</p>
                                                         <p>Numero de Me Gusta: {{img.megusta_count}}</p>
                                                         {{#if liked}}
-                                                            <p>Ya le diste me gusta</p>
+                                                            <p><form action="/app/megusta/{{img._id}}?_method=DELETE" method="POST">
+                                                                <button type="submit">Ya no me gusta</button>
+                                                            </form></p>
                                                         {{else}}
                                                             <p><a href="/app/megusta/{{img._id}}">Me Gusta!</a></p>
                                                         {{/if}}
