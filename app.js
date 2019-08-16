@@ -22,8 +22,8 @@ var router_user = require("./router/user");
 var router_home = require("./router/home");
 var router_megusta = require("./router/megusta");
 
+// Numero de saltos utilizados en la encriptacion del password
 const saltRounds = 10;
-
 
 
 // Configuracion del motor de vistas
